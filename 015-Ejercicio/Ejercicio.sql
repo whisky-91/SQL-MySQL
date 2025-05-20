@@ -79,8 +79,21 @@ WHERE
     DAY(h.fecha) BETWEEN 1 AND 15
 GROUP BY h.producto_id
 HAVING COUNT(DISTINCT h.precio) > 1;
+-----------------------------------------
+SELECT 
+    (SELECT p.nombre 
+     FROM productos p 
+     WHERE p.producto_id = h.producto_id) AS nombre,
+    COUNT(DISTINCT h.precio) AS precios_distintos
+FROM historico_precios h
+WHERE 
+    MONTH(h.fecha) = 4 AND
+    DAY(h.fecha) BETWEEN 1 AND 15
+GROUP BY h.producto_id
+HAVING COUNT(DISTINCT h.precio) > 1;
 
-Resultado esperado:
+
+-- Resultado esperado: //Vacio//
 
 Solo el producto "Disco SSD 1TB" cumple con esto, ya que tiene:
 
